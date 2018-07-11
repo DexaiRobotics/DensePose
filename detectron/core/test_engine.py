@@ -331,9 +331,10 @@ def initialize_model_from_cfg(weights_file, gpu_id=0):
     """Initialize a model from the global cfg. Loads test-time weights and
     creates the networks in the Caffe2 workspace.
     """
+    
     model = model_builder.create(cfg.MODEL.TYPE, train=False, gpu_id=gpu_id)
-    net_utils.initialize_gpu_from_weights_file(
-        model, weights_file, gpu_id=gpu_id,
+    net_utils.initialize_from_weights_file(
+        model, weights_file, broadcast=True,
     )
     model_builder.add_inference_inputs(model)
     workspace.CreateNet(model.net)
