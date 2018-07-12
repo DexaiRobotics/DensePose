@@ -250,6 +250,19 @@ def augment_contours(im, contours):
         
     return im
 
+def augment_contours_depth(im, contours):
+
+    """ Add contour with red color on depth image"""
+
+    result = cv2.cvtColor(im, cv2.COLOR_GRAY2BGR)
+
+    for array in contours:
+        for contour in array:
+            y, x = contour[0][0], contour[0][1]
+            result[x][y] = [0, 0, 255]
+    
+    return result
+
 def vis_one_image_IUV(
         im, boxes, segms=None, keypoints=None, body_uv=None, thresh=0.9,
         kp_thresh=2, dpi=200, box_alpha=0.0, dataset=None, show_class=False,
